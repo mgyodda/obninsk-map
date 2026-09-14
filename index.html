@@ -8,28 +8,28 @@
   <title>Обнинск · Карта предприятий</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23123e39'/%3E%3Cpath d='M16 5a8 8 0 0 0-8 8c0 6 8 14 8 14s8-8 8-14a8 8 0 0 0-8-8' fill='%237af1c4'/%3E%3Ccircle cx='16' cy='13' r='3' fill='%23123e39'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="vendor/leaflet.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20260914-gallery">
   <script src="vendor/leaflet.js" defer></script>
-  <script src="data.js" defer></script>
-  <script src="photos.js" defer></script>
-  <script src="app.js" defer></script>
+  <script src="data.js?v=20260914-gallery" defer></script>
+  <script src="photos.js?v=20260914-gallery" defer></script>
+  <script src="app.js?v=20260914-gallery" defer></script>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="./" aria-label="Обнинск — начало"><span class="brandmark">О<span>•</span></span><span>Обнинск<span class="brand-sub">КАРТА ПРЕДПРИЯТИЙ</span></span></a>
-    <div class="header-note">Наука. Производство. Город.</div>
+    <div class="header-note"><span class="edition">ГОРОДСКОЙ АТЛАС</span> 55.10° N / 36.61° E</div>
     <button id="overview" class="outline">Вся карта <span aria-hidden="true">↗</span></button>
   </header>
   <main class="workspace">
     <aside class="sidebar" aria-label="Предприятия Обнинска">
-      <div class="intro"><div class="eyebrow">ОБНИНСК / КАЛУЖСКАЯ ОБЛАСТЬ</div><h1>Город, в котором<br>создают будущее<span>.</span></h1><p>Наведите на метку, чтобы узнать о предприятии. На телефоне — коснитесь её.</p></div>
-      <div class="list-caption"><h2>Предприятия и научные центры</h2><span id="count"></span></div>
-      <nav id="places" aria-label="Выбрать предприятие"></nav>
+      <div class="intro"><div class="eyebrow">ОБНИНСК / КАЛУЖСКАЯ ОБЛАСТЬ</div><h1>Наука. <br>Производство. <br><span>Обнинск.</span></h1><p>Наведите на метку, чтобы узнать о предприятии. На телефоне — коснитесь её.</p></div>
+      <div class="discovery"><label for="search">НАЙТИ ПРЕДПРИЯТИЕ</label><input id="search" type="search" placeholder="Название, продукция, адрес…" autocomplete="off"><div class="filters" aria-label="Отрасль"><button data-group="Все" aria-pressed="true">Все</button><button data-group="Наука" aria-pressed="false">Наука</button><button data-group="Промышленность" aria-pressed="false">Промышленность</button><button data-group="Медицина" aria-pressed="false">Медицина</button></div></div><div class="list-caption"><h2>Предприятия и научные центры</h2><span id="count"></span></div>
+      <nav id="places" aria-label="Выбрать предприятие"></nav><div id="empty-results" class="empty-results" hidden>Ничего не найдено.<button id="clear-search">Сбросить поиск</button></div>
       <div class="sidebar-foot">Избранные организации · не полный реестр<br>Метки обозначают территории, а не проходные.</div>
     </aside>
     <section class="map-wrap" aria-label="Интерактивная карта Обнинска">
       <div id="map"></div>
-      <div class="map-label"><span class="live-dot"></span> ОБНИНСК <span class="muted">/ 4 места</span></div>
+      <div class="map-label"><span class="live-dot"></span> ОБНИНСК <span class="muted">/ организаций: 8</span></div>
       <div id="map-error" class="map-error" role="status" hidden>Подложка карты не загрузилась. Карточки предприятий доступны в списке. <button id="retry">Повторить</button></div>
       <div class="map-hint">Наведите на метку · Нажмите, чтобы приблизить</div>
     </section>
@@ -38,7 +38,7 @@
       <div id="detail-content"></div>
     </section>
   </main>
-  <dialog id="lightbox" aria-label="Просмотр фотографии"><button id="close-photo" class="icon-button" aria-label="Закрыть фотографию">×</button><img id="large-photo" alt=""><p id="photo-caption"></p></dialog>
+  <dialog id="lightbox" aria-label="Просмотр фотографии"><button id="close-photo" class="icon-button" aria-label="Закрыть фотографию">×</button><img id="large-photo" alt=""><div class="photo-nav"><button id="prev-photo" aria-label="Предыдущее фото">←</button><span id="photo-position" aria-live="polite"></span><button id="next-photo" aria-label="Следующее фото">→</button></div><p id="photo-caption"></p></dialog>
   <noscript><p class="noscript">Для интерактивной карты включите JavaScript в браузере.</p></noscript>
 </body>
 </html>
