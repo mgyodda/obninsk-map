@@ -67,6 +67,8 @@ if(window.L){
   layer.on('tileload',()=>{if(layer===tiles){loaded++;$('map-error').hidden=true;}});
  }
  $('retry').addEventListener('click',()=>{failed=0;$('map-error').hidden=true;tiles.redraw();});
+ // Set the view before adding markers: Leaflet creates marker elements only after map load.
+ overview();
  places.forEach((p,i)=>{
   const marker=L.marker(p.coords,{title:p.name,alt:p.name,keyboard:true,icon:L.divIcon({className:'pin',html:`<div class="pin-body"><span>${String(i+1).padStart(2,'0')}</span></div>`,iconSize:[44,44],iconAnchor:[22,44]}),riseOnHover:true}).addTo(map);
   marker.bindTooltip(escapeHTML(p.name),{className:'map-tooltip',direction:'bottom',offset:[0,5]});
@@ -76,6 +78,5 @@ if(window.L){
   marker.getElement().addEventListener('keydown',e=>{if(e.key===' '){e.preventDefault();openPlace(p,true,marker.getElement());}});
   markers.set(p.id,marker);
  });
- overview();
  new ResizeObserver(()=>map.invalidateSize()).observe($('map'));
 }else{$('map-error').hidden=false;$('map-error').textContent='Не удалось загрузить карту. Выберите предприятие из списка.';}
