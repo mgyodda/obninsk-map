@@ -4,6 +4,34 @@ const $=id=>document.getElementById(id);
 const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const external=(url,label)=>`<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(label)}</a>`;
 const detail=$('detail');
+const detailWindow=$('detail-window');
+const detailHome=detail.parentElement;
+let savedBodyOverflow='';
+function expandDetail(){
+ if(detail.hidden||detailWindow.open)return;
+ clearTimeout(timer);
+ const scroll=detail.scrollTop;
+ savedBodyOverflow=document.body.style.overflow;
+ detailWindow.append(detail);
+ document.body.style.overflow='hidden';
+ $('expand-detail').textContent='Свернуть ↙';
+ detailWindow.showModal();
+ detail.scrollTop=scroll;
+ $('expand-detail').focus({preventScroll:true});
+}
+function collapseDetail(){
+ if(!detailWindow.open)return;
+ const scroll=detail.scrollTop;
+ detailWindow.close();
+ detailHome.append(detail);
+ document.body.style.overflow=savedBodyOverflow;
+ $('expand-detail').textContent='Развернуть ↗';
+ detail.scrollTop=scroll;
+ if(!detail.hidden)$('expand-detail').focus({preventScroll:true});
+}
+$('expand-detail').addEventListener('click',()=>detailWindow.open?collapseDetail():expandDetail());
+detailWindow.addEventListener('cancel',e=>{e.preventDefault();e.stopPropagation();collapseDetail();});
+detailWindow.addEventListener('click',e=>{if(e.target===detailWindow)collapseDetail();});
 let selected=null,map,tiles,returnFocus=null,timer;
 let activePhotos=[],photoIndex=0;
 const markers=new Map();
@@ -19,7 +47,7 @@ places.forEach((p,i)=>{
 });
 function openPlace(p,focus=false,trigger=null){
  clearTimeout(timer);
- if($('lightbox').open)return;
+ if($('lightbox').open||detailWindow.open)return;
  if(selected!==p.id||detail.hidden){
   selected=p.id;
 
@@ -69,9 +97,9 @@ $('large-photo').addEventListener('error',()=>{$('large-photo').hidden=true;$('p
 $('prev-photo').addEventListener('click',()=>showPhoto(photoIndex-1));
 $('next-photo').addEventListener('click',()=>showPhoto(photoIndex+1));
 document.addEventListener('keydown',e=>{if($('lightbox').open&&['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();showPhoto(photoIndex+(e.key==='ArrowRight'?1:-1));}});
-function closeDetail(){detail.hidden=true;selected=null;clearTimeout(timer);document.querySelectorAll('.place').forEach(b=>b.setAttribute('aria-pressed','false'));markers.forEach(m=>m.getElement()?.classList.remove('selected'));if(returnFocus?.isConnected)returnFocus.focus({preventScroll:true});returnFocus=null;}
+function closeDetail(){collapseDetail();detail.hidden=true;selected=null;clearTimeout(timer);document.querySelectorAll('.place').forEach(b=>b.setAttribute('aria-pressed','false'));markers.forEach(m=>m.getElement()?.classList.remove('selected'));if(returnFocus?.isConnected)returnFocus.focus({preventScroll:true});returnFocus=null;}
 $('close-detail').addEventListener('click',closeDetail);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('lightbox').open)closeDetail();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('lightbox').open&&!detailWindow.open)closeDetail();});
 $('close-photo').addEventListener('click',()=>$('lightbox').close());
 $('lightbox').addEventListener('click',e=>{if(e.target===$('lightbox'))$('lightbox').close();});
 function overview(){closeDetail();if(map)map.fitBounds(places.map(p=>p.coords),{padding:[65,65],maxZoom:13,animate:!reduced()});}

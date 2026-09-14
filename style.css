@@ -8,3 +8,36 @@
 dialog{border:1px solid #3d5f53;border-radius:18px;padding:48px 20px 20px;background:#0d201a;color:#edf8f1;max-width:94vw;max-height:94dvh;box-shadow:0 25px 100px #0008}dialog::backdrop{background:#020d09ed;backdrop-filter:blur(8px)}dialog .icon-button{position:absolute;right:12px;top:9px}dialog img{display:block;max-width:85vw;max-height:65dvh;object-fit:contain;margin:auto}dialog p{font-size:13px;line-height:1.7;max-width:850px}dialog a{color:#a9eacf}.photo-nav{display:flex;justify-content:center;align-items:center;gap:25px;margin-top:18px}.photo-nav button{width:42px;height:38px;border:1px solid #527363;border-radius:9px;background:#213b2d;color:white;font-size:20px}.photo-nav span{min-width:50px;text-align:center;font-size:13px}
 @media(min-width:1600px){.sidebar{width:400px}.intro{padding:35px 30px}.detail{width:490px}.detail-hero img{height:260px}}@media(max-width:1150px){.sidebar{width:310px}.intro{padding:25px 22px}h1{font-size:34px}.detail{width:390px}.header-note{display:none}.map-hint{display:none}}@media(max-width:700px){.topbar{height:74px;padding:0 16px;gap:10px}.brand{font-size:21px}.brandmark{width:37px;height:37px;font-size:26px}.brand-sub{font-size:8px}.outline{padding:10px 13px;font-size:12px}.outline span{margin-left:8px}.workspace{height:auto;min-height:calc(100dvh - 74px);flex-direction:column}.map-wrap{order:0;flex:none;height:54dvh;min-height:340px;margin:10px;border-radius:16px}.sidebar{order:1;width:100%;overflow:visible;padding-bottom:30px}.intro{padding:21px 23px}.intro h1{font-size:33px;line-height:1.2;margin:10px 0}.intro h1 br{display:none}.intro h1 br::after{content:' '}.intro p{max-width:100%}.discovery{position:sticky;top:0;z-index:3;background:#0c1b23;padding-top:16px}.map-label{font-size:10px;left:12px;top:12px;padding:11px 12px}.leaflet-control-zoom{margin:12px!important}.leaflet-control-attribution{max-width:70%;font-size:9px!important}.detail{position:fixed;left:0;right:0;top:auto;bottom:0;max-height:84dvh;width:100%;border-radius:22px 22px 0 0;padding-bottom:env(safe-area-inset-bottom)}.detail-text{padding:24px}.detail-hero img{height:210px}#detail-title{font-size:29px}.gallery-item img{height:100px}.detail-top{padding:10px 18px}dialog{padding-inline:12px}dialog img{max-width:85vw;max-height:60dvh}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* Native modal keeps the same card and gallery event handlers. */
+.detail-actions{display:flex;align-items:center;gap:8px}
+.expand-button{border:1px solid #b8cfc1;border-radius:9px;padding:9px 12px;background:#eff7f0;color:#204d38;font:700 12px Manrope,Arial,sans-serif;letter-spacing:0;white-space:nowrap}
+.expand-button:hover{background:#dceee1}
+dialog.detail-modal{position:fixed;inset:0;margin:auto;width:min(1060px,94vw);height:92dvh;max-height:92dvh;max-width:94vw;padding:0;overflow:hidden;border-radius:22px;background:#fff;color:var(--ink)}
+dialog.detail-modal::backdrop{background:#06130dcc;backdrop-filter:blur(7px)}
+.detail-modal .detail{position:relative;inset:auto;display:block;width:100%;height:100%;max-height:none;padding:0;border:0;border-radius:0;box-shadow:none;overflow:auto}
+.detail-modal .detail-top{padding:14px 26px}
+.detail-modal .detail-actions .icon-button{position:static;right:auto;top:auto}
+.detail-modal img{max-width:none;max-height:none;margin:0}
+.detail-modal .detail-hero img{width:100%;height:clamp(230px,36dvh,380px);object-fit:cover}
+.detail-modal .detail-text{max-width:850px;margin:auto;padding:36px 40px 48px}
+.detail-modal #detail-title{font-size:42px}
+.detail-modal .detail-text p{max-width:none}
+.detail-modal .description{font-size:18px}
+.detail-modal .example p{font-size:16px}
+.detail-modal .detail-lead{font-size:22px}
+.detail-modal .detail-text a{color:#216347}
+.detail-modal .site-link{color:#effff0!important}
+.detail-modal .gallery{gap:12px}
+.detail-modal .gallery-item img{height:160px;width:100%;object-fit:cover}
+@media(max-width:700px){
+ .detail-top{gap:8px;letter-spacing:1px;font-size:9px}
+ .expand-button{font-size:11px;padding:8px}
+ dialog.detail-modal{width:100%;max-width:100%;height:100dvh;max-height:100dvh;border:0;border-radius:0}
+ .detail-modal .detail-top{padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top))}
+ .detail-modal .detail-text{padding:24px 20px 40px;padding-bottom:max(40px,env(safe-area-inset-bottom))}
+ .detail-modal #detail-title{font-size:30px}
+ .detail-modal .detail-lead{font-size:18px}
+ .detail-modal .description{font-size:16px}
+ .detail-modal .gallery-item img{height:100px}
+}
