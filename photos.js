@@ -1,92 +1,203 @@
 const galleries = {
   "ippe": [
     {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Obninsk-AES.jpg",
-      "caption": "Первая Обнинская АЭС на территории ФЭИ, 2008 год. Это здание АЭС, а не главный корпус института.",
-      "credit": "А.Савин, Википедия · CC BY-SA 3.0",
-      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Obninsk-AES.jpg"
+      "url": "images/ippe-02.jpg",
+      "caption": "Критический ядерный стенд БФС-1. Фото экспериментальной базы ФЭИ.",
+      "source": "https://www.ippe.ru/facilities",
+      "credit": "ФЭИ, официальный сайт",
+      "license": null,
+      "originalUrl": "https://www.ippe.ru/images/oyarit/bfs/bfs1.jpg"
+    },
+    {
+      "url": "images/ippe-03.jpg",
+      "caption": "Критический ядерный стенд БФС-2. Фото экспериментальной базы ФЭИ.",
+      "source": "https://www.ippe.ru/facilities",
+      "credit": "ФЭИ, официальный сайт",
+      "license": null,
+      "originalUrl": "https://www.ippe.ru/images/oyarit/bfs/bfs2.jpg"
+    },
+    {
+      "url": "images/ippe-04.jpg",
+      "caption": "Гидравлические стенды. Фото экспериментальной базы ФЭИ.",
+      "source": "https://www.ippe.ru/facilities",
+      "credit": "ФЭИ, официальный сайт",
+      "license": null,
+      "originalUrl": "https://www.ippe.ru/images/obyaeu/experimental-facilities/v2.jpg"
+    },
+    {
+      "url": "images/ippe-05.jpg",
+      "caption": "Теплогидравлические жидкометаллические стенды (Na, Na-K). Фото экспериментальной базы ФЭИ.",
+      "source": "https://www.ippe.ru/facilities",
+      "credit": "ФЭИ, официальный сайт",
+      "license": null,
+      "originalUrl": "https://www.ippe.ru/images/obyaeu/experimental-facilities/6b1.jpg"
+    },
+    {
+      "url": "images/ippe-06.jpg",
+      "caption": "Теплогидравлические водяные стенды. Фото экспериментальной базы ФЭИ.",
+      "source": "https://www.ippe.ru/facilities",
+      "credit": "ФЭИ, официальный сайт",
+      "license": null,
+      "originalUrl": "https://www.ippe.ru/images/obyaeu/experimental-facilities/svd-2.jpg"
+    },
+    {
+      "url": "images/ippe-07.jpg",
+      "caption": "Технологические жидкометаллические стенды (Na, Na-K). Фото экспериментальной базы ФЭИ.",
+      "source": "https://www.ippe.ru/facilities",
+      "credit": "ФЭИ, официальный сайт",
+      "license": null,
+      "originalUrl": "https://www.ippe.ru/images/obyaeu/experimental-facilities/protva2.jpg"
+    },
+    {
+      "url": "images/ippe-08.jpg",
+      "caption": "Стенды СПРУТ, СТФ. Фото экспериментальной базы ФЭИ.",
+      "source": "https://www.ippe.ru/facilities",
+      "credit": "ФЭИ, официальный сайт",
+      "license": null,
+      "originalUrl": "https://www.ippe.ru/images/obyaeu/experimental-facilities/stf1.jpg"
+    },
+    {
+      "url": "images/ippe-09.jpg",
+      "caption": "Двухзонный импульсный реактор БАРС-6. Фото экспериментальной базы ФЭИ.",
+      "source": "https://www.ippe.ru/facilities",
+      "credit": "ФЭИ, официальный сайт",
+      "license": null,
+      "originalUrl": "https://www.ippe.ru/images/okes/bars-main.jpg"
     }
   ],
   "technologiya": [
     {
       "url": "images/technologiya.jpg",
-      "caption": "Фасад ОНПП «Технология» им. А. Г. Ромашина. Публикация 2025 года.",
+      "caption": "Фасад ОНПП «Технология», публикация 2025 года.",
+      "source": "https://admobninsk.ru/news/2025/10/24/news_34090.html",
       "credit": "ОНПП «Технология» / Администрация Обнинска",
-      "source": "https://admobninsk.ru/news/2025/10/24/news_34090.html"
+      "license": null
+    },
+    {
+      "url": "images/technologiya-02.jpg",
+      "caption": "Здание ОНПП «Технология» в публикации Ростеха о научных школах предприятия.",
+      "source": "https://rostec.ru/media/news/steklo-keramika-i-kompozity-tri-nauchnykh-kita-tekhnologii/",
+      "credit": "ОНПП «Технология» / Ростех",
+      "license": null,
+      "originalUrl": "https://rostec.ru/upload/iblock/84f/ggndegsxhaha721yv0n1dyk4apm0xffw.jpg"
+    },
+    {
+      "url": "images/technologiya-03.jpg",
+      "caption": "Серафим Максимович Бреховских. История научной школы стекла.",
+      "source": "https://rostec.ru/media/news/steklo-keramika-i-kompozity-tri-nauchnykh-kita-tekhnologii/",
+      "credit": "ОНПП «Технология» / Ростех",
+      "license": null,
+      "originalUrl": "https://rostec.ru/upload/Серафим%20Максимович%20Бреховских.jpeg"
+    },
+    {
+      "url": "images/technologiya-04.jpg",
+      "caption": "Александр Гавриилович Ромашин. История научной школы керамики.",
+      "source": "https://rostec.ru/media/news/steklo-keramika-i-kompozity-tri-nauchnykh-kita-tekhnologii/",
+      "credit": "ОНПП «Технология» / Ростех",
+      "license": null,
+      "originalUrl": "https://rostec.ru/upload/aleksandr-gavriilovich-romashin-office.jpg"
+    },
+    {
+      "url": "images/technologiya-05.jpg",
+      "caption": "Андрей Георгиевич Савин. История научной школы композитов.",
+      "source": "https://rostec.ru/media/news/steklo-keramika-i-kompozity-tri-nauchnykh-kita-tekhnologii/",
+      "credit": "ОНПП «Технология» / Ростех",
+      "license": null,
+      "originalUrl": "https://rostec.ru/upload/Андрей%20Георгиевич%20Савин.jpg"
     }
   ],
   "typhoon": [
     {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Center_Obninsk_view_at_the_meteorological_twr.jpg",
-      "caption": "Обнинская метеомачта: вид через бульвар Окридж, 2021 год. На карте отмечена территория НПО, не сама мачта.",
-      "credit": "Philip Alon · CC BY-SA 4.0",
-      "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Center_Obninsk_view_at_the_meteorological_twr.jpg"
+      "url": "images/typhoon-02.jpg",
+      "caption": "Высотная метеорологическая мачта ВММ-310.",
+      "source": "https://www.rpatyphoon.ru/",
+      "credit": "НПО «Тайфун», официальный сайт",
+      "license": null,
+      "originalUrl": "https://www.rpatyphoon.ru/upload/medialibrary/3d7/vmm310.jpg"
+    },
+    {
+      "url": "images/typhoon-03.jpg",
+      "caption": "Внутри аэрозольного корпуса НПО «Тайфун». Иллюстрация экспериментального комплекса.",
+      "source": "https://www.rpatyphoon.ru/",
+      "credit": "НПО «Тайфун», официальный сайт",
+      "license": null,
+      "originalUrl": "https://www.rpatyphoon.ru/upload/medialibrary/b9f/b9f55ccbdc2679ab600c0c47c31b90b1.jpg"
+    },
+    {
+      "url": "images/typhoon-04.jpg",
+      "originalUrl": "https://www.rpatyphoon.ru/upload/medialibrary/ca9/BKK.jpg",
+      "caption": "Большая климатическая камера. Фото НПО «Тайфун».",
+      "source": "https://www.rpatyphoon.ru/activities/gidrometeo/uu.php",
+      "credit": "НПО «Тайфун», официальный сайт"
+    },
+    {
+      "url": "images/typhoon-05.jpg",
+      "originalUrl": "https://www.rpatyphoon.ru/upload/medialibrary/706/BKK_snaruzhi.jpg",
+      "caption": "Большая климатическая камера: вид снаружи. Фото НПО «Тайфун».",
+      "source": "https://www.rpatyphoon.ru/activities/gidrometeo/uu.php",
+      "credit": "НПО «Тайфун», официальный сайт"
+    },
+    {
+      "url": "images/typhoon-06.jpg",
+      "originalUrl": "https://www.rpatyphoon.ru/upload/medialibrary/e27/TBK.jpg",
+      "caption": "Термобарокамера для моделирования атмосферных условий. Фото НПО «Тайфун».",
+      "source": "https://www.rpatyphoon.ru/activities/gidrometeo/uu.php",
+      "credit": "НПО «Тайфун», официальный сайт"
+    },
+    {
+      "url": "images/typhoon-07.jpg",
+      "originalUrl": "https://www.rpatyphoon.ru/upload/medialibrary/26c/Gor_tr_1.jpg",
+      "caption": "Горизонтальная аэродинамическая труба. Фото НПО «Тайфун».",
+      "source": "https://www.rpatyphoon.ru/activities/gidrometeo/uu.php",
+      "credit": "НПО «Тайфун», официальный сайт"
+    },
+    {
+      "url": "images/typhoon-08.jpg",
+      "originalUrl": "https://www.rpatyphoon.ru/upload/medialibrary/c63/Gor_tr_2.jpg",
+      "caption": "Оборудование горизонтальной аэродинамической трубы. Фото НПО «Тайфун».",
+      "source": "https://www.rpatyphoon.ru/activities/gidrometeo/uu.php",
+      "credit": "НПО «Тайфун», официальный сайт"
+    },
+    {
+      "url": "images/typhoon-09.jpg",
+      "originalUrl": "https://www.rpatyphoon.ru/upload/medialibrary/a01/Vert_tr.jpg",
+      "caption": "Вертикальная двухфазная аэродинамическая труба. Фото НПО «Тайфун».",
+      "source": "https://www.rpatyphoon.ru/activities/gidrometeo/uu.php",
+      "credit": "НПО «Тайфун», официальный сайт"
     }
   ],
   "karpov": [
     {
       "url": "images/karpov.jpg",
-      "caption": "Здание обнинского филиала НИФХИ им. Л. Я. Карпова. Публикация 2014 года.",
+      "caption": "Здание обнинской площадки НИФХИ, публикация 2014 года.",
+      "source": "https://www.atomic-energy.ru/news/2014/11/14/52921",
       "credit": "Атомная энергия 2.0 / livepark.pro",
-      "source": "https://www.atomic-energy.ru/news/2014/11/14/52921"
+      "license": null
+    },
+    {
+      "url": "images/karpov-02.jpg",
+      "caption": "Иллюстрация НИФХИ с официального сайта: предприятие и его продукция.",
+      "source": "https://www.karpovipc.ru/",
+      "credit": "НИФХИ им. Л. Я. Карпова, официальный сайт",
+      "license": null,
+      "originalUrl": "https://www.karpovipc.ru/images/NIFHI_web.jpg"
+    },
+    {
+      "url": "images/karpov-03.jpg",
+      "caption": "Фасад с названием НИФХИ и символикой Росатома. Фото из раздела «О предприятии».",
+      "source": "https://www.karpovipc.ru/",
+      "credit": "НИФХИ им. Л. Я. Карпова, официальный сайт",
+      "license": null,
+      "originalUrl": "https://www.karpovipc.ru/images/Articles_images/zavod03.jpg"
+    },
+    {
+      "url": "images/karpov-04.jpg",
+      "caption": "Исследовательский реактор. Иллюстрация раздела истории НИФХИ.",
+      "source": "https://www.karpovipc.ru/",
+      "credit": "НИФХИ им. Л. Я. Карпова, официальный сайт",
+      "license": null,
+      "originalUrl": "https://www.karpovipc.ru/images/Articles_images/reactor.jpg"
     }
-  ],
-  "signal": [
-    {
-      "url": "https://pz-signal.ru/themes/signal/assets/images/history/obninsk1968.png",
-      "caption": "Строительство завода «Сигнал». Архивный снимок, на сайте датирован 1969 годом.",
-      "source": "https://pz-signal.ru/history",
-      "credit": "Архив ПЗ «Сигнал»"
-    },
-    {
-      "url": "https://pz-signal.ru/themes/signal/assets/images/history/ceh.png",
-      "caption": "Сборочно-монтажный цех: исторический снимок из архива предприятия.",
-      "source": "https://pz-signal.ru/history",
-      "credit": "Архив ПЗ «Сигнал»"
-    },
-    {
-      "url": "https://pz-signal.ru/storage/app/uploads/public/620/13d/35c/62013d35c600d259166701.png",
-      "caption": "Микроцентрифуга-встряхиватель «Сигмед МЦ-01». Изображение продукции.",
-      "source": "https://pz-signal.ru/products/detail/mikrocentrifuga-sigmed-mc-01",
-      "credit": "ПЗ «Сигнал»"
-    }
-  ],
-  "orgsintez": [
-    {
-      "url": "https://sintecgroup.ru/production/prod-2.jpg",
-      "caption": "Иллюстрация ассортимента из официального раздела продукции SINTEC Group.",
-      "source": "https://sintecgroup.ru/production/",
-      "credit": "SINTEC Group"
-    },
-    {
-      "url": "https://sintecgroup.ru/production/prod-3.jpg",
-      "caption": "Иллюстрация продукции SINTEC Group. Это материал группы, не фотография фасада предприятия.",
-      "source": "https://sintecgroup.ru/production/",
-      "credit": "SINTEC Group"
-    }
-  ],
-  "hemofarm": [
-    {
-      "url": "https://nizhpharm.ru/css/images/redesign/factory-ob.jpg",
-      "caption": "Производственная площадка в Обнинске.",
-      "source": "https://nizhpharm.ru/",
-      "credit": "Группа «НИЖФАРМ»"
-    },
-    {
-      "url": "https://nizhpharm.ru/resize/w640/upload/iblock/b1c/gz9l9nsujil7czzbx23pwjxjaa566u7r/004_0587.jpg?636bf045=&nowebp=",
-      "caption": "Фотография из медиабиблиотеки обнинской производственной площадки.",
-      "source": "https://nizhpharm.ru/company/proizvodstnennie-ploschadki/obninsk/",
-      "credit": "Группа «НИЖФАРМ»"
-    },
-    {
-      "url": "https://nizhpharm.ru/resize/w640/upload/iblock/506/070_3138.jpg?a4d8410c=&nowebp=",
-      "caption": "Обнинская площадка: официальная медиабиблиотека предприятия.",
-      "source": "https://nizhpharm.ru/company/proizvodstnennie-ploschadki/obninsk/",
-      "credit": "Группа «НИЖФАРМ»"
-    }
-  ],
-  "metra": []
+  ]
 };
 window.PLACES.forEach(p=>{p.photos=galleries[p.id]||[];p.photo=p.photos[0];});

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#123e39">
   <meta name="description" content="Предприятия и научные центры Обнинска на интерактивной карте: фотографии, история, направления работы и адреса.">
-  <title>Обнинск · Карта предприятий</title>
+  <title>Обнинск · Карта научных организаций</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23123e39'/%3E%3Cpath d='M16 5a8 8 0 0 0-8 8c0 6 8 14 8 14s8-8 8-14a8 8 0 0 0-8-8' fill='%237af1c4'/%3E%3Ccircle cx='16' cy='13' r='3' fill='%23123e39'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="vendor/leaflet.css">
   <link rel="stylesheet" href="style.css?v=20260914-window">
@@ -16,30 +16,36 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="./" aria-label="Обнинск — начало"><span class="brandmark">О<span>•</span></span><span>Обнинск<span class="brand-sub">КАРТА ПРЕДПРИЯТИЙ</span></span></a>
-    <div class="header-note"><span class="edition">ГОРОДСКОЙ АТЛАС</span> 55.10° N / 36.61° E</div>
+    <a class="brand" href="./" aria-label="Обнинск — начало"><span class="brandmark">О<span>•</span></span><span>Обнинск<span class="brand-sub">НАУЧНЫЙ ОБНИНСК</span></span></a>
+    <div class="header-note"><a href="project.html" style="color:inherit">О проекте и материалы защиты</a></div>
     <button id="overview" class="outline">Вся карта <span aria-hidden="true">↗</span></button>
   </header>
   <main class="workspace">
     <aside class="sidebar" aria-label="Предприятия Обнинска">
       <div class="intro"><div class="eyebrow">ОБНИНСК / КАЛУЖСКАЯ ОБЛАСТЬ</div><h1>Наука. <br>Производство. <br><span>Обнинск.</span></h1><p>Наведите на метку, чтобы узнать о предприятии. На телефоне — коснитесь её.</p></div>
-      <div class="discovery"><label for="search">НАЙТИ ПРЕДПРИЯТИЕ</label><input id="search" type="search" placeholder="Название, продукция, адрес…" autocomplete="off"><div class="filters" aria-label="Отрасль"><button data-group="Все" aria-pressed="true">Все</button><button data-group="Наука" aria-pressed="false">Наука</button><button data-group="Промышленность" aria-pressed="false">Промышленность</button><button data-group="Медицина" aria-pressed="false">Медицина</button></div></div><div class="list-caption"><h2>Предприятия и научные центры</h2><span id="count"></span></div>
+      <div class="discovery"><label for="search">НАЙТИ ПРЕДПРИЯТИЕ</label><input id="search" type="search" placeholder="Название, продукция, адрес…" autocomplete="off"><div class="filters" aria-label="Отрасль"><button data-group="Все" aria-pressed="true">Все</button><button data-group="Ядерные технологии" aria-pressed="false">Ядерные технологии</button><button data-group="Материаловедение" aria-pressed="false">Материаловедение</button><button data-group="Экология и климат" aria-pressed="false">Экология и климат</button></div></div><div class="list-caption"><h2>Предприятия и научные центры</h2><span id="count"></span></div>
       <nav id="places" aria-label="Выбрать предприятие"></nav><div id="empty-results" class="empty-results" hidden>Ничего не найдено.<button id="clear-search">Сбросить поиск</button></div>
-      <div class="sidebar-foot">Избранные организации · не полный реестр<br>Метки обозначают территории, а не проходные.</div>
+      <div class="sidebar-foot">Избранные организации · не полный реестр<br>Метки обозначают территории, а не проходные.<br><a href="catalog.html" style="color:inherit">Каталог без интернета</a> · <a href="project.html" style="color:inherit">Материалы проекта</a></div>
     </aside>
     <section class="map-wrap" aria-label="Интерактивная карта Обнинска">
       <div id="map"></div>
-      <div class="map-label"><span class="live-dot"></span> ОБНИНСК <span class="muted">/ организаций: 8</span></div>
+      <div class="map-label"><span class="live-dot"></span> ОБНИНСК <span class="muted">/ организаций: 4</span></div>
+      <div class="map-quick-actions">
+        <button id="reset-view-btn" class="map-action-btn" aria-label="Сбросить вид карты"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+        <button id="fullscreen-btn" class="map-action-btn" aria-label="На весь экран"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
+      </div>
       <div id="map-error" class="map-error" role="status" hidden>Подложка карты не загрузилась. Карточки предприятий доступны в списке. <button id="retry">Повторить</button></div>
       <div class="map-hint">Наведите на метку · Нажмите, чтобы приблизить</div>
     </section>
     <section id="detail" class="detail" aria-labelledby="detail-title" hidden>
-      <div class="detail-top"><span>КАРТОЧКА ПРЕДПРИЯТИЯ</span><div class="detail-actions"><button id="expand-detail" class="expand-button" aria-haspopup="dialog" aria-controls="detail-window">Развернуть ↗</button><button id="close-detail" class="icon-button" aria-label="Закрыть карточку">×</button></div></div>
+      <div class="detail-top"><span>КАРТОЧКА ПРЕДПРИЯТИЯ</span><div class="detail-actions"><button id="share-detail" class="icon-button" title="Поделиться" aria-label="Поделиться ссылкой"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button><button id="expand-detail" class="expand-button" aria-haspopup="dialog" aria-controls="detail-window">Развернуть ↗</button><button id="close-detail" class="icon-button" aria-label="Закрыть карточку">×</button></div></div>
       <div id="detail-content"></div>
     </section>
   </main>
   <dialog id="detail-window" class="detail-modal" aria-labelledby="detail-title"></dialog>
   <dialog id="lightbox" aria-label="Просмотр фотографии"><button id="close-photo" class="icon-button" aria-label="Закрыть фотографию">×</button><img id="large-photo" alt=""><div class="photo-nav"><button id="prev-photo" aria-label="Предыдущее фото">←</button><span id="photo-position" aria-live="polite"></span><button id="next-photo" aria-label="Следующее фото">→</button></div><p id="photo-caption"></p></dialog>
   <noscript><p class="noscript">Для интерактивной карты включите JavaScript в браузере.</p></noscript>
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
 </body>
 </html>
+

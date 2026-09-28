@@ -2,7 +2,10 @@
 const places=window.PLACES;
 const $=id=>document.getElementById(id);
 const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const external=(url,label)=>`<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(label)}</a>`;
+const external=(url,label)=>{
+ if(!/^(https?:|mailto:|tel:)/i.test(String(url)))return escapeHTML(label);
+ return `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(label)}</a>`;
+};
 const detail=$('detail');
 const detailWindow=$('detail-window');
 const detailHome=detail.parentElement;
@@ -43,7 +46,10 @@ document.querySelector('.map-label .muted').textContent=`/ организаци�
 places.forEach((p,i)=>{
  const b=document.createElement('button');b.className='place';b.style.setProperty('--sector',p.group==='Наука'?'#66e4d0':p.group==='Медицина'?'#bca7ff':'#fac277');b.id='place-'+p.id;b.setAttribute('aria-pressed','false');b.setAttribute('aria-controls','detail');
  b.innerHTML=`<span class="place-num">${String(i+1).padStart(2,'0')}</span><span><strong>${escapeHTML(p.name)}</strong><small>${escapeHTML(p.category)}</small></span><span class="place-arrow" aria-hidden="true">↗</span>`;
- b.addEventListener('click',()=>openPlace(p,true,b));$('places').append(b);
+ b.addEventListener('click',()=>openPlace(p,true,b));
+ b.addEventListener('mouseenter',()=>{const m=markers.get(p.id);if(m)m.getElement()?.classList.add('hovered');});
+ b.addEventListener('mouseleave',()=>{const m=markers.get(p.id);if(m)m.getElement()?.classList.remove('hovered');});
+ $('places').append(b);
 });
 function openPlace(p,focus=false,trigger=null){
  clearTimeout(timer);
@@ -59,21 +65,28 @@ function openPlace(p,focus=false,trigger=null){
    <p class="detail-lead">${escapeHTML(p.lead||'')}</p><div class="full-name">${escapeHTML(p.full)}</div>
    <div class="facts">${p.year?`<div><strong>${escapeHTML(p.year)}</strong><span>год основания${p.id==='karpov'?' площадки':''}</span></div>`:''}<div><strong>${p.examples?.length||0}</strong><span>примера продукции и работ</span></div></div>
    <p class="description">${escapeHTML(p.description)}</p>
+   <h3>Почему это научная организация</h3><p>${escapeHTML(p.science||'')}</p>
+   <h3>Что исследуют</h3>${(p.research||[]).map(([title,text])=>`<h4>${escapeHTML(title)}</h4><p>${escapeHTML(text)}</p>`).join('')}
    <h3>Что здесь создают</h3><div class="examples">${(p.examples||[]).map((e,i)=>`<article class="example"><span class="example-no">0${i+1}</span><div><h4>${escapeHTML(e[0])}</h4><p>${escapeHTML(e[1])}</p></div></article>`).join('')}</div>
    ${p.history?.length?`<h3>История в датах</h3><ol class="timeline">${p.history.map(h=>`<li><strong>${escapeHTML(h[0])}</strong><span>${escapeHTML(h[1])}</span></li>`).join('')}</ol>`:''}
    <h3>Фотографии <span class="section-count">${activePhotos.length}</span></h3>
    ${activePhotos.length?`<div class="gallery">${activePhotos.map((im,i)=>`<button class="gallery-item" data-photo="${i}" aria-label="Открыть фото ${i+1}: ${escapeHTML(im.caption)}"><img loading="lazy" src="${escapeHTML(im.url)}" alt="${escapeHTML(im.caption)}"><span>${String(i+1).padStart(2,'0')} ↗</span></button>`).join('')}</div><p class="photo-note">Архивные снимки и материалы предприятий. Превью кадрированы; полные изображения открываются по нажатию.</p>`:`<p class="photo-note">Проверенных фотографий пока нет. ${external(p.site,'Официальный сайт предприятия ↗')}</p>`}
+   <h3>Значение разработок</h3><p>${escapeHTML(p.importance||'')}</p>
+   <h3>Термины простыми словами</h3><dl>${(p.terms||[]).map(([term,meaning])=>`<dt><strong>${escapeHTML(term)}</strong></dt><dd>${escapeHTML(meaning)}</dd>`).join('')}</dl>
+   <h3>Связанные профессии</h3><p>${(p.professions||[]).map(escapeHTML).join(', ')}.</p><p class="photo-note">Примеры профессиональных направлений, а не список открытых вакансий.</p>
    <h3>Направления работы</h3><div class="directions">${p.directions.map(x=>`<span>${escapeHTML(x)}</span>`).join('')}</div>
-   <div class="address-card"><h3>Как найти</h3><div class="address">${escapeHTML(p.address)}</div>${external('https://yandex.ru/maps/?text='+encodeURIComponent(p.name+' '+p.address),'Открыть Яндекс Карты ↗')}</div>
+   <div class="address-card"><h3>Как найти</h3><div class="address">${escapeHTML(p.address)}</div><button class="copy-coords-btn" data-coords="${p.coords.join(', ')}">Скопировать координаты</button>${external('https://yandex.ru/maps/?text='+encodeURIComponent(p.name+' '+p.address),'Открыть Яндекс Карты ↗')}</div>
    <a class="site-link" href="${escapeHTML(p.site)}" target="_blank" rel="noopener noreferrer">Официальный сайт ↗</a>
    <details class="sources"><summary>Источники и авторы фотографий</summary><p>${external(p.source,'Описание')}${p.geoSource?external(p.geoSource,'Координаты'):''}${p.addressSource?external(p.addressSource,'Адрес'):''}</p>
    <p>${(p.extraSources||[]).map((url,i)=>external(url,'Материал '+(i+1))).join(' ')}</p>
    ${activePhotos.map((im,i)=>`<p>${i+1}. ${escapeHTML(im.caption)}<br>${external(im.source,im.credit)} ${im.license?external(im.license,'Лицензия'):''}</p>`).join('')}
-   <p>Проверено 14.09.2026. Метки — ориентиры территорий и адресов, не проверенные проходные. Примеры описывают деятельность предприятия и не являются инструкциями по применению продукции.</p></details></div>`;
+   <p>Содержательная сверка: ${escapeHTML(p.checked||'28.09.2026')}. Координаты сохранены из исходной карты. Метки — ориентиры территорий, не проверенные проходные. Фото могут быть архивными. Открытая лицензия указана там, где она заявлена источником; остальные права принадлежат правообладателям.</p></details></div>`;
   detail.hidden=false;detail.scrollTop=0;
   if(photo)$('open-photo').addEventListener('click',()=>showPhoto(0));
   $('detail-content').querySelectorAll('[data-photo]').forEach(btn=>btn.addEventListener('click',()=>showPhoto(Number(btn.dataset.photo))));
   $('detail-content').querySelectorAll('img').forEach(img=>img.addEventListener('error',()=>{img.hidden=true;const note=document.createElement('span');note.className='photo-failed';note.textContent='Фото недоступно · открыть источник';img.parentElement.append(note);},{once:true}));
+  const copyBtn=$('detail-content').querySelector('.copy-coords-btn');
+  if(copyBtn)copyBtn.addEventListener('click',()=>copyToClipboard(copyBtn.dataset.coords,'Координаты скопированы!'));
   document.querySelectorAll('.place').forEach(b=>b.setAttribute('aria-pressed',String(b.id==='place-'+p.id)));
   markers.forEach((m,id)=>m.getElement()?.classList.toggle('selected',id===p.id));
  }
@@ -144,7 +157,7 @@ if(window.L){
 }else{$('map-error').hidden=false;$('map-error').textContent='Не удалось загрузить карту. Выберите предприятие из списка.';}
 
 let activeGroup='Все';
-const searchText=p=>[p.name,p.full,p.category,p.address,p.lead,...p.directions,...(p.examples||[]).flat()].join(' ').toLocaleLowerCase('ru').replace(/ё/g,'е');
+const searchText=p=>[p.name,p.full,p.category,p.address,p.lead,p.science,...p.directions,...(p.examples||[]).flat(),...(p.research||[]).flat(),...(p.terms||[]).flat(),...(p.professions||[])].join(' ').toLocaleLowerCase('ru').replace(/ё/g,'е');
 function applyFilters(){
  const q=$('search').value.trim().toLocaleLowerCase('ru').replace(/ё/g,'е');
  const visible=places.filter(p=>(activeGroup==='Все'||p.group===activeGroup)&&searchText(p).includes(q));
@@ -157,3 +170,82 @@ function applyFilters(){
 $('search').addEventListener('input',applyFilters);
 document.querySelectorAll('[data-group]').forEach(b=>b.addEventListener('click',()=>{activeGroup=b.dataset.group;document.querySelectorAll('[data-group]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));applyFilters();}));
 $('clear-search').addEventListener('click',()=>{$('search').value='';activeGroup='Все';document.querySelectorAll('[data-group]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.group==='Все')));applyFilters();$('search').focus();});
+
+function copyToClipboard(text,successMsg){
+ if(!navigator.clipboard){showToast('Копирование не поддерживается');return;}
+ navigator.clipboard.writeText(text).then(()=>showToast(successMsg)).catch(()=>showToast('Не удалось скопировать'));
+}
+
+function showToast(message){
+ const container=$('toast-container');
+ const toast=document.createElement('div');
+ toast.className='toast';
+ toast.textContent=message;
+ if($('lightbox').open){$('lightbox').append(container);}
+ else if(detailWindow.open){detailWindow.append(container);}
+ else{document.body.append(container);}
+ container.append(toast);
+ toast.getBoundingClientRect();
+ toast.classList.add('show');
+ setTimeout(()=>{
+  toast.classList.remove('show');
+  toast.addEventListener('transitionend',()=>toast.remove());
+ },3000);
+}
+
+$('share-detail').addEventListener('click',()=>{
+ if(selected){
+  const url=window.location.origin+window.location.pathname+'#'+selected;
+  copyToClipboard(url,'Ссылка на предприятие скопирована!');
+ }
+});
+
+$('reset-view-btn').addEventListener('click',overview);
+$('fullscreen-btn').addEventListener('click',()=>{
+ if(!document.fullscreenElement){document.documentElement.requestFullscreen().catch(()=>showToast('Не удалось включить полноэкранный режим'));}
+ else{document.exitFullscreen().catch(()=>{});}
+});
+document.addEventListener('fullscreenchange',()=>{if(map)map.invalidateSize();});
+
+let touchStartY=0,currentDetailTranslate=0;
+const detailTop=document.querySelector('.detail-top');
+detailTop.addEventListener('touchstart',e=>{
+ touchStartY=e.touches[0].clientY;
+ detail.style.transition='none';
+},{passive:true});
+detailTop.addEventListener('touchmove',e=>{
+ if(detail.scrollTop>0)return;
+ const deltaY=e.touches[0].clientY-touchStartY;
+ if(deltaY>0){
+  currentDetailTranslate=deltaY;
+  detail.style.transform=`translateY(${deltaY}px)`;
+ }
+},{passive:true});
+detailTop.addEventListener('touchend',()=>{
+ detail.style.transition='transform 0.3s ease';
+ if(currentDetailTranslate>75){
+  detail.style.transform='translateY(100%)';
+  setTimeout(()=>{
+   closeDetail();
+   detail.style.transform='';
+   currentDetailTranslate=0;
+   detail.style.transition='';
+  },300);
+ }else{
+  detail.style.transform='';
+  currentDetailTranslate=0;
+  setTimeout(()=>detail.style.transition='',300);
+ }
+});
+detailTop.addEventListener('touchcancel',()=>{
+ detail.style.transition='transform 0.3s ease';
+ detail.style.transform='';
+ currentDetailTranslate=0;
+ setTimeout(()=>detail.style.transition='',300);
+});
+
+const hash=window.location.hash.slice(1);
+if(hash){
+ const p=places.find(x=>x.id===hash);
+ if(p)openPlace(p,true);
+}
